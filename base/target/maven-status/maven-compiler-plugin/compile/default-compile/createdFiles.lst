@@ -1,0 +1,3 @@
+me\mahdiyar\base\jpa\BaseEntity.class
+me\mahdiyar\base\jpa\BaseRepository.class
+me\mahdiyar\base\exceptions\BaseException.class
