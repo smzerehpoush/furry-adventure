@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 //@EnableFeignClients
 public class UserServiceApplication {
 
+    @Value("${spring.application.name}")
+    private String serviceName;
+
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApplication.class, args);
     }
@@ -21,9 +24,6 @@ public class UserServiceApplication {
     public UserAuthConfig userAuthConfig() {
         return new UserAuthConfig();
     }
-
-    @Value("${spring.application.name}")
-    private String serviceName;
 
     @Bean
     MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {

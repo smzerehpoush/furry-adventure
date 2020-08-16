@@ -1,12 +1,12 @@
 package me.mahdiyar.digipay.auth.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.mahdiyar.base.exceptions.BaseException;
 import me.mahdiyar.digipay.auth.contract.domain.user.request.LoginRequestDto;
 import me.mahdiyar.digipay.auth.contract.domain.user.request.SignupRequestDto;
 import me.mahdiyar.digipay.auth.contract.domain.user.response.LoginResponseDto;
 import me.mahdiyar.digipay.auth.contract.domain.user.response.SignupResponseDto;
 import me.mahdiyar.digipay.auth.service.AuthService;
-import me.mahdiyar.base.exceptions.BaseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

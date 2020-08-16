@@ -1,7 +1,7 @@
 package me.mahdiyar.digipay.auth.repository;
 
-import me.mahdiyar.digipay.auth.domain.SessionEntity;
 import me.mahdiyar.base.jpa.BaseRepository;
+import me.mahdiyar.digipay.auth.domain.SessionEntity;
 import org.springframework.stereotype.Repository;
 
 /**

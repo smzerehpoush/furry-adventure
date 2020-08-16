@@ -38,7 +38,7 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
         if (!(object instanceof BaseEntity)) {
             return false;
         } else {
-            BaseEntity<?> that = (BaseEntity) object;
+            BaseEntity<?> that = (BaseEntity<?>) object;
             this.checkIdentity(this);
             this.checkIdentity(that);
             return this.id.equals(that.id);
@@ -65,20 +65,20 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
         return this.id;
     }
 
-    public LocalDateTime getCreationTime() {
-        return this.creationTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return this.updateTime;
-    }
-
     protected void setId(final String id) {
         this.id = id;
     }
 
+    public LocalDateTime getCreationTime() {
+        return this.creationTime;
+    }
+
     protected void setCreationTime(final LocalDateTime creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return this.updateTime;
     }
 
     protected void setUpdateTime(final LocalDateTime updateTime) {

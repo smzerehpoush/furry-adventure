@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Bean;
 //@EnableDiscoveryClient
 public class AuthServiceApplication {
 
+    @Value("${spring.application.name}")
+    private String serviceName;
+
     public static void main(String[] args) {
         SpringApplication.run(AuthServiceApplication.class, args);
     }
-
-    @Value("${spring.application.name}")
-    private String serviceName;
 
     @Bean
     MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {

@@ -2,9 +2,9 @@ version: "3"
 
 services:
 
-#  ----------------
-#  Infrastructure
-#  ----------------
+  #  ----------------
+  #  Infrastructure
+  #  ----------------
   postgresql:
     image: postgres:11
     container_name: "postgresql"

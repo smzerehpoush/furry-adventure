@@ -1,7 +1,7 @@
 package me.mahdiyar.digipay.user.service.mapper;
 
-import me.mahdiyar.digipay.user.domain.UserEntity;
 import me.mahdiyar.digipay.user.contract.domain.User;
+import me.mahdiyar.digipay.user.domain.UserEntity;
 
 public class UserMapper {
     private UserMapper() {
