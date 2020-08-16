@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("search")
-    public ResponseEntity<List<BaseUser>> searchUsers(@RequestParam("username") String username) {
+    public ResponseEntity<BaseUser> searchUsers(@RequestParam("username") String username) throws BaseException{
         return ok(userService.searchUsers(username));
     }
 

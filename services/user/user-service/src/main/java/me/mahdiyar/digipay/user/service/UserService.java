@@ -1,6 +1,7 @@
 package me.mahdiyar.digipay.user.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.mahdiyar.digipay.user.contract.domain.BaseUser;
 import me.mahdiyar.digipay.user.contract.domain.User;
 import me.mahdiyar.digipay.user.contract.domain.request.CreateUserRequestDto;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
@@ -25,9 +27,9 @@ public class UserService {
         return UserMapper.map(userEntity);
     }
 
-    public List<BaseUser> searchUsers(String username) {
-        return userRepository.findAllByUsernameContaining(username).stream()
-                .map(BaseUserMapper::map).collect(Collectors.toList());
+    public BaseUser searchUsers(String username) throws UserNotFoundException {
+        return BaseUserMapper.map(
+                userRepository.findFirstByUsernameEquals(username).orElseThrow(UserNotFoundException::new));
     }
 
     public List<BaseUser> getAll() {
@@ -35,6 +37,7 @@ public class UserService {
     }
 
     public BaseUser create(CreateUserRequestDto requestDto) throws UsernameExistsException {
+        logger.info("trying to create user with request : {}", requestDto);
         if (userRepository.existsByUsername(requestDto.getUsername()))
             throw new UsernameExistsException();
         UserEntity userEntity = new UserEntity(requestDto.getUsername(), requestDto.getHashedPassword());

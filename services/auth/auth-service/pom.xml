@@ -16,7 +16,7 @@
     </properties>
 
     <dependencies>
-    <!--    start base service dependencies    -->
+        <!--    start base service dependencies    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>

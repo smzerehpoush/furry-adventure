@@ -1,0 +1,38 @@
+package me.mahdiyar.digipay.auth.controller;
+
+import lombok.RequiredArgsConstructor;
+import me.mahdiyar.digipay.auth.contract.domain.user.request.LoginRequestDto;
+import me.mahdiyar.digipay.auth.contract.domain.user.request.SignupRequestDto;
+import me.mahdiyar.digipay.auth.contract.domain.user.response.LoginResponseDto;
+import me.mahdiyar.digipay.auth.contract.domain.user.response.SignupResponseDto;
+import me.mahdiyar.digipay.auth.service.AuthService;
+import me.mahdiyar.base.exceptions.BaseException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author Seyyed Mahdiyar Zerehpoush
+ */
+@RestController
+@RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService authService;
+
+    @PostMapping("/signup")
+    public ResponseEntity<SignupResponseDto> signup(@RequestBody SignupRequestDto request, HttpServletResponse response
+    ) throws BaseException {
+        return ResponseEntity.ok(authService.signup(request, response));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> authenticate(
+            @RequestBody LoginRequestDto request, HttpServletResponse response) throws BaseException {
+        return ResponseEntity.ok(authService.login(request, response));
+    }
+}

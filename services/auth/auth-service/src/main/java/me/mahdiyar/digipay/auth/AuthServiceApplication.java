@@ -1,25 +1,20 @@
-package me.mahdiyar.digipay.user;
+package me.mahdiyar.digipay.auth;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import me.mahdiyar.digipay.auth.base.config.UserAuthConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableFeignClients
 //@EnableDiscoveryClient
-//@EnableFeignClients
-public class UserServiceApplication {
+public class AuthServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
-    }
-
-    @Bean
-    public UserAuthConfig userAuthConfig() {
-        return new UserAuthConfig();
+        SpringApplication.run(AuthServiceApplication.class, args);
     }
 
     @Value("${spring.application.name}")
