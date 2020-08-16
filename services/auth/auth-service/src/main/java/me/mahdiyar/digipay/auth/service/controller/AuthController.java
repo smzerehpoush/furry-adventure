@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Seyyed Mahdiyar Zerehpoush
  */
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;

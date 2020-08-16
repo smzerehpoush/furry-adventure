@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity<UserEntity> {
+public class UserEntity extends BaseEntity {
     @Column(name = "username")
     private String username;
     @Column(name = "hashed_password")

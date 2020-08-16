@@ -16,7 +16,7 @@ import javax.validation.constraints.Null;
 @Table(name = "sessions")
 @Data
 @NoArgsConstructor
-public class SessionEntity extends BaseEntity<SessionEntity> {
+public class SessionEntity extends BaseEntity {
     @Null
     @Column(name = "user_id")
     private String userId;

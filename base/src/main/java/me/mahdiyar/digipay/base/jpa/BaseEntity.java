@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
-public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializable {
+public abstract class BaseEntity implements Serializable {
     @Id
     @Column(name = "id")
     private String id = UUID.randomUUID().toString();
@@ -25,22 +25,18 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
     public BaseEntity() {
     }
 
-    public boolean sameIdentityAs(final T that) {
-        return this.equals(that);
-    }
-
     public boolean equals(final Object object) {
         if (!(object instanceof BaseEntity)) {
             return false;
         } else {
-            BaseEntity<?> that = (BaseEntity<?>) object;
+            BaseEntity that = (BaseEntity) object;
             this.checkIdentity(this);
             this.checkIdentity(that);
             return this.id.equals(that.id);
         }
     }
 
-    private void checkIdentity(final BaseEntity<?> entity) {
+    private void checkIdentity(final BaseEntity entity) {
         if (entity.id == null) {
             throw new IllegalStateException("Identity missing in entity: " + entity);
         }
