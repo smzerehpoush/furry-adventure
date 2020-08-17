@@ -1,4 +1,4 @@
-package me.mahdiyar.digipay.payment.service.service.payment_provider2.request;
+package me.mahdiyar.digipay.payment.service.service.payment_provider2.model.dto.request;
 
 import lombok.Data;
 

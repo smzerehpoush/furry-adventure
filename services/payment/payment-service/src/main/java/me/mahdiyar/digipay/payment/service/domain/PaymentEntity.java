@@ -27,7 +27,7 @@ public class PaymentEntity extends BaseEntity {
     )
     @GeneratedValue(generator = "paymentSequenceGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "payment_id")
-    protected Long paymentId;
+    public Long paymentId;
 
     @Column(name = "amount")
     protected Long amount;
@@ -56,9 +56,6 @@ public class PaymentEntity extends BaseEntity {
 
     @Column(name = "rrn")
     private String rrn;
-
-    @Column(name = "trace_id")
-    private String traceId;
 
     @Column(name = "ip")
     private String ip;
