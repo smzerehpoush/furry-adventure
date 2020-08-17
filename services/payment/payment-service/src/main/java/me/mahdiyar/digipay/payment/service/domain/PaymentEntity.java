@@ -3,6 +3,7 @@ package me.mahdiyar.digipay.payment.service.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.mahdiyar.digipay.base.jpa.BaseEntity;
+import me.mahdiyar.digipay.payment.contract.domain.enums.PaymentProvider;
 import me.mahdiyar.digipay.payment.contract.domain.enums.PaymentStatus;
 import me.mahdiyar.digipay.payment.contract.domain.enums.ResourceType;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,8 +26,11 @@ public class PaymentEntity extends BaseEntity {
             }
     )
     @GeneratedValue(generator = "paymentSequenceGenerator", strategy = GenerationType.SEQUENCE)
-    @Column(name = "payment_id", length = 15)
+    @Column(name = "payment_id")
     protected Long paymentId;
+
+    @Column(name = "amount")
+    protected Long amount;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "payment_status")
@@ -63,7 +67,7 @@ public class PaymentEntity extends BaseEntity {
     private boolean underProcess;
 
     @Column(name = "session_id")
-    private String session_id;
+    private String sessionId;
 
     @Column(name = "user_id")
     private String userId;
@@ -85,5 +89,7 @@ public class PaymentEntity extends BaseEntity {
     @Column(name = "dest_resource_type")
     private ResourceType destResourceType;
 
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_provider")
+    private PaymentProvider paymentProvider;
 }
