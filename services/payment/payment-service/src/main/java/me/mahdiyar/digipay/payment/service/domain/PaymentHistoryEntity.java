@@ -31,6 +31,7 @@ public class PaymentHistoryEntity {
     @CreationTimestamp
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "payment_id")
     private PaymentEntity payment;

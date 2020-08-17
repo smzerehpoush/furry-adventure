@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ResourceRepository extends BaseRepository<ResourceEntity> {
     @Query("SELECT r FROM ResourceEntity r WHERE r.userId = :user_id " +
-            "AND (:resoruce_type IS NULL OR r.resourceType = :resoruce_type) " +
+            "AND (:resource_type IS NULL OR r.resourceType = :resource_type) " +
             "AND (r.deleted IS NULL OR r.deleted = FALSE )" +
             "ORDER BY r.creationTime DESC ")
     List<ResourceEntity> findAllUserResources(
