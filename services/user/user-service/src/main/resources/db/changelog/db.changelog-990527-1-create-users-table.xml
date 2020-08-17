@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="db.changelog-990527-1-create-users-table.xml" author="Seyyed Mahdiyar Zerehpoush">
+        <sql>
+            create table users
+            (
+            id char(36) not null,
+            creation_time timestamp,
+            update_time timestamp,
+            username varchar not null,
+            hashed_password varchar
+            );
+
+            create unique index users_id_uindex
+            on users (id);
+
+            alter table users
+            add constraint users_pk
+            primary key (id);
+
+            create unique index users_username_uindex
+            on users (username);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
