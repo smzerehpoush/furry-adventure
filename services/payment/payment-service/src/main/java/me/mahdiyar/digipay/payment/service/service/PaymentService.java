@@ -14,7 +14,9 @@ import me.mahdiyar.digipay.payment.service.client.NotificationClient;
 import me.mahdiyar.digipay.payment.service.client.UserClient;
 import me.mahdiyar.digipay.payment.service.domain.PaymentEntity;
 import me.mahdiyar.digipay.payment.service.domain.PaymentHistoryEntity;
+import me.mahdiyar.digipay.payment.service.domain.ResourceEntity;
 import me.mahdiyar.digipay.payment.service.exceptions.PaymentException;
+import me.mahdiyar.digipay.payment.service.exceptions.ResourceNotFoundException;
 import me.mahdiyar.digipay.payment.service.infrastructure.PaymentSystem;
 import me.mahdiyar.digipay.payment.service.infrastructure.model.builder.DoPaymentResponseBuilder;
 import me.mahdiyar.digipay.payment.service.infrastructure.model.dto.response.BasePaymentResponseDto;
@@ -36,6 +38,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class PaymentService {
+    private final ResourceService resourceService;
     private final PaymentRepository paymentRepository;
     private final PaymentHistoryRepository paymentHistoryRepository;
     private final PaymentProvider1 paymentProvider1;
@@ -46,8 +49,10 @@ public class PaymentService {
     private final MessageSource messageSource;
 
     public DoPaymentResponseDto doPayment(
-            BaseUserCredential baseUserCredential, DoPaymentRequestDto requestDto, HttpServletRequest servletRequest) {
-        PaymentEntity paymentEntity = initiateRequest(baseUserCredential, requestDto, servletRequest);
+            BaseUserCredential baseUserCredential, DoPaymentRequestDto requestDto, HttpServletRequest servletRequest)
+            throws ResourceNotFoundException {
+        ResourceEntity resourceEntity = resourceService.findById(requestDto.getSourceResourceId());
+        PaymentEntity paymentEntity = initiateRequest(baseUserCredential, requestDto, servletRequest, resourceEntity);
         final PaymentSystem paymentSystem = buildPaymentService(paymentEntity.getPaymentProvider());
         try {
             logger.info("trying to do a payment with id :{}", paymentEntity.getId());
@@ -140,19 +145,20 @@ public class PaymentService {
     }
 
     private PaymentEntity initiateRequest(
-            BaseUserCredential baseUserCredential, DoPaymentRequestDto requestDto, HttpServletRequest servletRequest) {
+            BaseUserCredential baseUserCredential, DoPaymentRequestDto requestDto, HttpServletRequest servletRequest,
+            ResourceEntity resourceEntity) {
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setUnderProcess(true);
         paymentEntity.setUserId(baseUserCredential.getUserId());
         paymentEntity.setSessionId(baseUserCredential.getSessionId());
         paymentEntity.setAmount(requestDto.getAmount());
-        paymentEntity.setSourceResource(requestDto.getSourceResource());
-        paymentEntity.setSourceResourceType(requestDto.getSourceResourceType());
+        paymentEntity.setSourceResource(resourceEntity.getResource());
+        paymentEntity.setSourceResourceType(resourceEntity.getResourceType());
         paymentEntity.setDestResource(requestDto.getDestResource());
         paymentEntity.setDestResourceType(requestDto.getDestResourceType());
         paymentEntity.setIp(IpUtils.getRequestIpAddress(servletRequest));
-        logger.info("tryihng to initiate payment request : {}", paymentEntity);
-        paymentEntity.setPaymentProvider(findPaymentProvider(requestDto.getSourceResource()));
+        logger.info("trying to initiate payment request : {}", paymentEntity);
+        paymentEntity.setPaymentProvider(findPaymentProvider(resourceEntity.getResource()));
         return paymentRepository.save(paymentEntity);
     }
 

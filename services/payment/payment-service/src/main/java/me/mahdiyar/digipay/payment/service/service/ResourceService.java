@@ -38,7 +38,7 @@ public class ResourceService {
         ResourceEntity resourceEntity = resourceRepository.getExistingResource(baseUserCredential.getUserId(),
                 requestDto.getResource(), requestDto.getResourceType());
         if (resourceEntity != null)
-            resourceEntity = updateResource(resourceEntity, requestDto);
+            updateResource(resourceEntity, requestDto);
         else
             resourceEntity = createResource(requestDto);
         resourceEntity = resourceRepository.save(resourceEntity);
@@ -53,10 +53,9 @@ public class ResourceService {
 
     }
 
-    private ResourceEntity updateResource(ResourceEntity resourceEntity, CreateResourceRequestDto requestDto) {
+    private void updateResource(ResourceEntity resourceEntity, CreateResourceRequestDto requestDto) {
         resourceEntity.setDeleted(true);
         resourceEntity.setTitle(requestDto.getTitle());
-        return resourceEntity;
     }
 
     private ResourceEntity updateResource(ResourceEntity resourceEntity, UpdateResourceRequestDto requestDto) {
@@ -69,8 +68,7 @@ public class ResourceService {
             throws ResourceNotFoundException, ResourceIsNotYoursException {
         ResourceEntity resourceEntity = findById(resourceId);
         checkResourceOwner(resourceEntity, baseUserCredential);
-        resourceEntity = updateResource(resourceEntity, requestDto);
-        resourceEntity = resourceRepository.save(resourceEntity);
+        resourceEntity = resourceRepository.save(updateResource(resourceEntity, requestDto));
         return ResourceMapper.map(resourceEntity);
     }
 

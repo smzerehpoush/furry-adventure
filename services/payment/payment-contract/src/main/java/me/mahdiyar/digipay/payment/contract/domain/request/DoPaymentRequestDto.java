@@ -10,9 +10,7 @@ import javax.validation.constraints.NotNull;
 public class DoPaymentRequestDto {
     private Long amount;
     @NotNull
-    private String sourceResource;
-    @NotNull
-    private ResourceType sourceResourceType;
+    private String sourceResourceId;
     @NotNull
     private String destResource;
     @NotNull
