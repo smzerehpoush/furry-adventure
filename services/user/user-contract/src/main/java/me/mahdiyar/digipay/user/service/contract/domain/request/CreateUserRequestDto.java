@@ -10,4 +10,6 @@ public class CreateUserRequestDto {
     private String username;
     @NotBlank
     private String hashedPassword;
+    @NotBlank
+    private String mobileNo;
 }

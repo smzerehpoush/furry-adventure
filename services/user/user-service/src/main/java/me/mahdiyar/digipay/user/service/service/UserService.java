@@ -40,8 +40,13 @@ public class UserService {
         logger.info("trying to create user with request : {}", requestDto);
         if (userRepository.existsByUsername(requestDto.getUsername()))
             throw new UsernameExistsException();
-        UserEntity userEntity = new UserEntity(requestDto.getUsername(), requestDto.getHashedPassword());
+        UserEntity userEntity =
+                new UserEntity(requestDto.getUsername(), requestDto.getHashedPassword(), requestDto.getMobileNo());
         userEntity = userRepository.save(userEntity);
         return BaseUserMapper.map(userEntity);
+    }
+
+    public String getUserMobileNo(String id) throws UserNotFoundException {
+        return getById(id).getMobileNo();
     }
 }

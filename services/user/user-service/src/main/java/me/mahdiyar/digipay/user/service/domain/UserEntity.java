@@ -17,9 +17,12 @@ public class UserEntity extends BaseEntity {
     private String username;
     @Column(name = "hashed_password")
     private String hashedPassword;
+    @Column(name = "mobile_no")
+    private String mobileNo;
 
-    public UserEntity(String username, String hashedPassword) {
+    public UserEntity(String username, String hashedPassword, String mobileNo) {
         this.username = username;
         this.hashedPassword = hashedPassword;
+        this.mobileNo = mobileNo;
     }
 }

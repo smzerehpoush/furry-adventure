@@ -27,6 +27,11 @@ public class UserController {
         return ok(userService.getById(id));
     }
 
+    @GetMapping("{id}/mobile-no")
+    public ResponseEntity<String> getUserMobileNo(@PathVariable("id") String id) throws BaseException {
+        return ok(userService.getUserMobileNo(id));
+    }
+
     @GetMapping
     public ResponseEntity<List<BaseUser>> getAll() {
         return ok(userService.getAll());

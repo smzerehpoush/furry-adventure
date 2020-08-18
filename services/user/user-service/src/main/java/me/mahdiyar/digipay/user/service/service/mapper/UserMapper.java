@@ -11,6 +11,7 @@ public class UserMapper {
         return new User(userEntity.getId(),
                 userEntity.getUsername(),
                 userEntity.getHashedPassword(),
-                userEntity.getCreationTime());
+                userEntity.getCreationTime(),
+                userEntity.getMobileNo());
     }
 }
