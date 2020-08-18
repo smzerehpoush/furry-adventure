@@ -132,6 +132,7 @@
         <module>services/auth/auth-service</module>
 
         <module>services/notification/notification-contract</module>
+        <module>services/notification/notification-service</module>
 
     </modules>
 
