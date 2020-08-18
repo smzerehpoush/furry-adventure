@@ -70,7 +70,7 @@ public class PaymentEntity extends BaseEntity {
     private String userId;
 
     @Column(name = "source_resource_id")
-    private String sourceResourceId;
+    private Long sourceResourceId;
 
     @Column(name = "source_resource")
     private String sourceResource;

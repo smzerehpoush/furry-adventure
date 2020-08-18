@@ -4,4 +4,6 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <include file="db.changelog-init.xml" relativeToChangelogFile="true"/>
     <include file="db.changelog-990527-1-create-resources-table.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-990528-1-create-payments-table.xml" relativeToChangelogFile="true"/>
+    <include file="db.changelog-990528-2-create-payments-history-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

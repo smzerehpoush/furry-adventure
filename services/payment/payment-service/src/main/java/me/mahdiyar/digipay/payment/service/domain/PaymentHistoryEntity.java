@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "payments_history")
 @Data
 @NoArgsConstructor
 public class PaymentHistoryEntity {
@@ -19,7 +19,7 @@ public class PaymentHistoryEntity {
             name = "paymentHistorySequenceGenerator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "seq_payment_history"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "seq_payments_history"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             }
@@ -36,7 +36,7 @@ public class PaymentHistoryEntity {
     @JoinColumn(name = "payment_id")
     private PaymentEntity payment;
 
-    @Column(name = "status")
+    @Column(name = "payment_status")
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 }

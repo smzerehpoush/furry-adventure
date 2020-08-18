@@ -1,0 +1,48 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="db.changelog-990528-1-create-payments-table.xml" author="Seyyed Mahdiyar Zerehpoush">
+        <sql>
+            create table payments
+            (
+            id char(36) not null,
+            creation_time timestamp not null,
+            update_time timestamp,
+            payment_id bigint not null,
+            amount bigint not null,
+            payment_status varchar not null,
+            finish_time timestamp,
+            switch_req_date timestamp,
+            switch_res_date timestamp,
+            switch_result_code bigint,
+            switch_result_message varchar,
+            rrn varchar,
+            ip varchar,
+            under_process boolean,
+            session_id char(36),
+            user_id char(36),
+            source_resource_id bigint,
+            source_resource varchar,
+            source_resource_type varchar,
+            dest_resource varchar,
+            payment_provider varchar,
+            dest_resource_type varchar
+            );
+
+            create unique index payments_id_uindex
+            on payments (id);
+
+            create unique index payments_payment_id_uindex
+            on payments (payment_id);
+
+            alter table payments
+            add constraint payments_pk
+            primary key (id);
+
+            create sequence seq_payments;
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
