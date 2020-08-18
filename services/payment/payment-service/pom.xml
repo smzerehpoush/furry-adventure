@@ -88,6 +88,11 @@
             <artifactId>payment-contract</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>me.mahdiyar</groupId>
+            <artifactId>notification-contract</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--    end base service dependencies    -->
 
     </dependencies>

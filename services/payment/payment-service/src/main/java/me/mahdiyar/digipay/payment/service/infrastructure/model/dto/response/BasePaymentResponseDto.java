@@ -7,8 +7,7 @@ import lombok.Data;
  */
 @Data
 public class BasePaymentResponseDto {
-    private String resultCode;
+    private Long resultCode;
     private String resultMessage;
     private String rrn;
-    private String traceId;
 }

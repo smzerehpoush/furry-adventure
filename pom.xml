@@ -123,13 +123,15 @@
 
         <module>services/user/user-service</module>
         <module>services/user/user-contract</module>
-	
-		<module>services/payment/payment-service</module>
+
+        <module>services/payment/payment-service</module>
         <module>services/payment/payment-contract</module>
 
         <module>services/auth/auth-base</module>
         <module>services/auth/auth-contract</module>
         <module>services/auth/auth-service</module>
+
+        <module>services/notification/notification-contract</module>
 
     </modules>
 
