@@ -11,6 +11,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>payment-service</artifactId>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
     <!--    start base service dependencies    -->
     <dependencies>
         <dependency>
