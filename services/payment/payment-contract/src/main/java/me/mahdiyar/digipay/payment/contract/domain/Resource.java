@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class Resource {
     private String id;
     private LocalDateTime creationTime;
-    protected Long resourceId;
     private String userId;
     private ResourceType resourceType;
     private String value;

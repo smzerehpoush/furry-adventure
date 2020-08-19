@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "user-service", url = "http://localhost:8081/api/v1/users")
 public interface UserClient {
     @GetMapping("{user-id}/mobile-no")
-    String getUserMobileNo(@PathVariable("user-id") String userId);
+    Long getUserMobileNo(@PathVariable("user-id") String userId);
 }

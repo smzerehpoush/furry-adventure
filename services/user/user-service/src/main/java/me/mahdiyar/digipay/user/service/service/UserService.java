@@ -46,7 +46,7 @@ public class UserService {
         return BaseUserMapper.map(userEntity);
     }
 
-    public String getUserMobileNo(String id) throws UserNotFoundException {
+    public Long getUserMobileNo(String id) throws UserNotFoundException {
         return getById(id).getMobileNo();
     }
 }

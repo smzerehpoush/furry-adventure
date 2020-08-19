@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableFeignClients
 //@EnableDiscoveryClient
+@EnableFeignClients
 public class PaymentServiceApplication {
 
     @Value("${spring.application.name}")

@@ -89,17 +89,18 @@ public class AuthService {
         if (user != null)
             throw new UsernameExistsException();
         final String hashedPassword = passwordEncoder.encode(request.getPassword());
-        user = signup(request.getUsername(), hashedPassword);
+        user = signup(request.getUsername(), hashedPassword, request.getMobileNo());
         final SessionEntity sessionEntity = createSession(user.getId());
         final String token = TokenProvider.generateTokenForUser(user.getId(), sessionEntity.getId());
         setAuthenticationInfoInResponse(response, token);
         return new SignupResponseDto(user, token);
     }
 
-    private BaseUser signup(String username, String hashedPassword) {
+    private BaseUser signup(String username, String hashedPassword, Long mobileNo) {
         CreateUserRequestDto requestDto = new CreateUserRequestDto();
         requestDto.setUsername(username);
         requestDto.setHashedPassword(hashedPassword);
+        requestDto.setMobileNo(mobileNo);
         try {
             return userClient.create(requestDto);
 

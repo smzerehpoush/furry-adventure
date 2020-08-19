@@ -11,5 +11,5 @@ public class CreateUserRequestDto {
     @NotBlank
     private String hashedPassword;
     @NotBlank
-    private String mobileNo;
+    private Long mobileNo;
 }

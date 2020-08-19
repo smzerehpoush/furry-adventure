@@ -6,7 +6,6 @@ import me.mahdiyar.digipay.base.jpa.BaseEntity;
 import me.mahdiyar.digipay.payment.contract.domain.enums.PaymentProvider;
 import me.mahdiyar.digipay.payment.contract.domain.enums.PaymentStatus;
 import me.mahdiyar.digipay.payment.contract.domain.enums.ResourceType;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,17 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PaymentEntity extends BaseEntity {
-    @GenericGenerator(
-            name = "paymentSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "seq_payment"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
-    @GeneratedValue(generator = "paymentSequenceGenerator", strategy = GenerationType.SEQUENCE)
-    @Column(name = "payment_id")
+    @Column(name = "payment_id")//created using sequence : seq_payments
     public Long paymentId;
 
     @Column(name = "amount")
@@ -70,7 +59,7 @@ public class PaymentEntity extends BaseEntity {
     private String userId;
 
     @Column(name = "source_resource_id")
-    private Long sourceResourceId;
+    private String sourceResourceId;
 
     @Column(name = "source_resource")
     private String sourceResource;

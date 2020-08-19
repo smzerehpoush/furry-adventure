@@ -40,15 +40,16 @@ public class ResourceService {
         if (resourceEntity != null)
             updateResource(resourceEntity, requestDto);
         else
-            resourceEntity = createResource(requestDto);
+            resourceEntity = createResource(requestDto, baseUserCredential.getUserId());
         resourceEntity = resourceRepository.save(resourceEntity);
         return ResourceMapper.map(resourceEntity);
     }
 
-    private ResourceEntity createResource(CreateResourceRequestDto requestDto) {
+    private ResourceEntity createResource(CreateResourceRequestDto requestDto, String userId) {
         return new ResourceEntity().setResource(requestDto.getResource())
                 .setResourceType(requestDto.getResourceType())
                 .setTitle(requestDto.getTitle())
+                .setUserId(userId)
                 .setDeleted(false);
 
     }

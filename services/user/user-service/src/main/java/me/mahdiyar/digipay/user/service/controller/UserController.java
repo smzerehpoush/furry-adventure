@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("{id}/mobile-no")
-    public ResponseEntity<String> getUserMobileNo(@PathVariable("id") String id) throws BaseException {
+    public ResponseEntity<Long> getUserMobileNo(@PathVariable("id") String id) throws BaseException {
         return ok(userService.getUserMobileNo(id));
     }
 

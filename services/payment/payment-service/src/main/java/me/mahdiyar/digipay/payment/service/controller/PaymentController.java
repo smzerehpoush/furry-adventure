@@ -10,6 +10,7 @@ import me.mahdiyar.digipay.payment.contract.domain.response.DoPaymentResponseDto
 import me.mahdiyar.digipay.payment.service.service.PaymentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class PaymentController {
     @PostMapping
     public ResponseEntity<DoPaymentResponseDto> doPayment(
             @WithUser BaseUserCredential baseUserCredential,
-            @Valid DoPaymentRequestDto requestDto,
+            @Valid @RequestBody DoPaymentRequestDto requestDto,
             HttpServletRequest servletRequest) throws BaseException {
         return ok(paymentService.doPayment(baseUserCredential, requestDto, servletRequest));
     }

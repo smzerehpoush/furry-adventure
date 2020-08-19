@@ -34,7 +34,7 @@ public class WithUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) webRequest.getNativeRequest();
         String authorizationHeader = extractAuthorizationHeader(httpServletRequest);
-        if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith(TokenProvider.BEARER)) {
+        if (StringUtils.hasText(authorizationHeader)) {
             authorizationHeader = authorizationHeader.replace(TokenProvider.BEARER, "");
         } else {
             throw new InvalidAccessTokenException();

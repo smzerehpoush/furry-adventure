@@ -12,7 +12,6 @@ public class ResourceMapper {
             return null;
         return new Resource()
                 .setId(resourceEntity.getId())
-                .setResourceId(resourceEntity.resourceId)
                 .setUserId(resourceEntity.getUserId())
                 .setValue(resourceEntity.getResource())
                 .setTitle(resourceEntity.getTitle())

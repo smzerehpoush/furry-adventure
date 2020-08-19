@@ -10,7 +10,7 @@ import javax.validation.Valid;
 /**
  * @author Seyyed Mahdiyar Zerehpoush
  */
-@FeignClient(name = "notification-service", url = "http://localhost:8081/api/v1/notification")
+@FeignClient(name = "notification-service", url = "http://localhost:8084/api/v1/notification")
 public interface NotificationClient {
     @GetMapping
     void sendNotificationToUser(@RequestBody @Valid SendNotificationRequestDto requestDto);

@@ -3,12 +3,14 @@ package me.mahdiyar.digipay.payment.service.service.payment_provider1;
 import me.mahdiyar.digipay.payment.service.infrastructure.model.dto.response.BasePaymentResponseDto;
 import me.mahdiyar.digipay.payment.service.service.payment_provider1.client.PaymentProvider1Client;
 import me.mahdiyar.digipay.payment.service.service.payment_provider1.model.dto.request.PaymentRequestDto;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 /**
  * @author Seyyed Mahdiyar Zerehpoush
  */
+@Component
 public class FakePaymentProvider1ClientImpl implements PaymentProvider1Client {
     @Override
     public BasePaymentResponseDto doPayment(PaymentRequestDto requestDto) {

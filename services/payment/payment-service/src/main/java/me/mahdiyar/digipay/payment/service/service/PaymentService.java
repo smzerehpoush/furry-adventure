@@ -94,11 +94,11 @@ public class PaymentService {
     }
 
     private void sentNotificationToCustomer(PaymentEntity paymentEntity) {
-        String mobileNo = findUserMobileNo(paymentEntity);
+        Long mobileNo = findUserMobileNo(paymentEntity);
         if (mobileNo == null)
             return;
         SendNotificationRequestDto requestDto = new SendNotificationRequestDto()
-                .setMobileNo(Long.parseLong(mobileNo))
+                .setMobileNo(mobileNo)
                 .setMessage(createReceiptMessage(paymentEntity));
         notificationClient.sendNotificationToUser(requestDto);
     }
@@ -112,7 +112,7 @@ public class PaymentService {
                         .replace("{date}", paymentEntity.getCreationTime().toString());
     }
 
-    private String findUserMobileNo(PaymentEntity paymentEntity) {
+    private Long findUserMobileNo(PaymentEntity paymentEntity) {
         try {
             return userClient.getUserMobileNo(paymentEntity.getUserId());
         } catch (FeignException ex) {
@@ -152,11 +152,13 @@ public class PaymentService {
         paymentEntity.setUserId(baseUserCredential.getUserId());
         paymentEntity.setSessionId(baseUserCredential.getSessionId());
         paymentEntity.setAmount(requestDto.getAmount());
+        paymentEntity.setSourceResourceId(resourceEntity.getId());
         paymentEntity.setSourceResource(resourceEntity.getResource());
         paymentEntity.setSourceResourceType(resourceEntity.getResourceType());
         paymentEntity.setDestResource(requestDto.getDestResource());
         paymentEntity.setDestResourceType(requestDto.getDestResourceType());
         paymentEntity.setIp(IpUtils.getRequestIpAddress(servletRequest));
+        paymentEntity.setPaymentStatus(PaymentStatus.INITIATED);
         logger.info("trying to initiate payment request : {}", paymentEntity);
         paymentEntity.setPaymentProvider(findPaymentProvider(resourceEntity.getResource()));
         return paymentRepository.save(paymentEntity);
