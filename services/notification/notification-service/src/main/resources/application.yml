@@ -1,4 +1,13 @@
 spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          max-attempts: 3
   application:
     name: notification-service
   jpa:
@@ -34,3 +43,11 @@ feign:
     enabled: true
 server:
   port: 8084
+
+notification-service:
+  exchange:
+    name: "notification-exchange"
+  queue:
+    name: "notification-queue"
+  routing:
+    key: "notification"

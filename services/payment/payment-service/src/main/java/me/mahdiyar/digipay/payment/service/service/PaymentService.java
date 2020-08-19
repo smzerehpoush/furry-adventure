@@ -98,7 +98,7 @@ public class PaymentService {
         if (mobileNo == null)
             return;
         SendNotificationRequestDto requestDto = new SendNotificationRequestDto()
-                .setMobileNo(mobileNo)
+                .setMobileNo(Long.parseLong(mobileNo))
                 .setMessage(createReceiptMessage(paymentEntity));
         notificationClient.sendNotificationToUser(requestDto);
     }

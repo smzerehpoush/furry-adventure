@@ -10,7 +10,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class SendNotificationRequestDto {
     @NotNull
+    private String senderUserId;
+    @NotNull
     private String message;
     @NotNull
-    private String mobileNo;
+    private Long mobileNo;
 }
