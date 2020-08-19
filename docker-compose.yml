@@ -12,16 +12,16 @@ services:
     ports:
       - "5445:5432"
     environment:
-      POSTGRES_USER: mahdiyar
-      POSTGRES_PASSWORD: mahdiyar
-      POSTGRES_DB: mahdiyar
+      POSTGRES_USER: digipay
+      POSTGRES_PASSWORD: digipay
+      POSTGRES_DB: digipay
     networks:
-      - mahdiyar-network
+      - digipay-network
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
   rabbitmq:
-    image: rabbitmq:3.7-management-alpine
+    image: rabbitmq:management
     container_name: rabbitmq
     restart: always
     ports:
@@ -35,7 +35,7 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     networks:
-      - mahdiyar-network
+      - digipay-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -46,12 +46,8 @@ services:
     volumes:
       - promtheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    extra_hosts:
-      - iranmall.efarda.ir:${SERVER_HOST_IP}
-    ports:
-      - '9090:9090'
     networks:
-      - mahdiyar-network
+      - digipay-network
 
   grafana:
     image: grafana/grafana:latest
@@ -66,25 +62,20 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - mahdiyar-network
+      - digipay-network
 
   #  ----------------
   #  Services
   #  ----------------
 
-  iranmall-service:
-    image: registry.gitlab.farazpardazan.com/iranmall/iranmall-server/me.mahdiyar.service/iranmall-me.mahdiyar.service:develop
+  auth-service:
     restart: always
-    container_name: "iranmall-me.mahdiyar.service"
+    container_name: "auth-service"
     ports:
-      - "8010:8010"
+      - "8082:8082"
     depends_on:
-      - consul
-      - me.mahdiyar.config-server
       - rabbitmq
-      - zipkin
-    volumes:
-      - /opt/iranmall/user-me.mahdiyar.service/logs:/logs
+      - postgresql
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_CLOUD_CONSUL_DISCOVERY_HOSTNAME: iranmall-me.mahdiyar.service
@@ -99,76 +90,11 @@ services:
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
       SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
-    #      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
     networks:
-      - mahdiyar-network
-
-  user-service:
-    image: registry.gitlab.farazpardazan.com/iranmall/iranmall-server/me.mahdiyar.service/user-me.mahdiyar.service:develop
-    restart: always
-    container_name: "user-me.mahdiyar.service"
-    ports:
-      - "8020:8020"
-    depends_on:
-      - consul
-      - me.mahdiyar.config-server
-      - rabbitmq
-      - zipkin
-    volumes:
-      - /opt/iranmall/user-me.mahdiyar.service/logs:/logs
-    environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_DISCOVERY_HOSTNAME: user-me.mahdiyar.service
-      SPRING_ZIPKIN_BASE-URL: ${SPRING_ZIPKIN_BASE_URL}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_LIQUIBASE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_LIQUIBASE_USER: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_LIQUIBASE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
-      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
-    networks:
-      - mahdiyar-network
-
-  payment-service:
-    image: registry.gitlab.farazpardazan.com/iranmall/iranmall-server/me.mahdiyar.service/payment-me.mahdiyar.service:develop
-    restart: always
-    container_name: "payment-me.mahdiyar.service"
-    extra_hosts:
-      - "wallet.efarda.ir:${EFARDA_WALLET_HOST}"
-      - "mpg.ba24.ir:${EFARDA_MPG_HOST}"
-    ports:
-      - "8040:8040"
-    depends_on:
-      - consul
-      - me.mahdiyar.config-server
-      - rabbitmq
-      - zipkin
-    volumes:
-      - /opt/iranmall/payment-me.mahdiyar.service/logs:/logs
-    environment:
-      SPRING_CLOUD_CONSUL_HOST: consul
-      SPRING_CLOUD_CONSUL_DISCOVERY_HOSTNAME: payment-me.mahdiyar.service
-      SPRING_ZIPKIN_BASE-URL: ${SPRING_ZIPKIN_BASE_URL}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_LIQUIBASE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_LIQUIBASE_USER: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_LIQUIBASE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
-      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
-    #     LOGGING_LEVEL_ORG_SPRINGFRAMEWORK: DEBUG
-    networks:
-      - mahdiyar-network
+      - digipay-network
 
 networks:
-  mahdiyar-network:
+  digipay-network:
 
 volumes:
   grafana-data:

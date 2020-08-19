@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@FeignClient(name = "user-service", url = "http://localhost:8081/api/v1/users")
+@FeignClient(name = "user-service", url = "user-service:8081/api/v1/users")
 public interface UserClient {
     @GetMapping("{id}")
     User getById(@PathVariable("id") String id);
