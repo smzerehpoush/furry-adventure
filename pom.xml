@@ -116,14 +116,8 @@
                 <version>${h2database.version}</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${spotify.docker.plugin.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
     <modules>
         <module>base</module>
 
@@ -141,4 +135,29 @@
         <module>services/notification/notification-service</module>
 
     </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${spotify.docker.plugin.version}</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <skip>true</skip>
+                    <pullNewerImage>false</pullNewerImage>
+                    <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>${spotify.docker.plugin.version}</version>
+                    <inherited>true</inherited>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
