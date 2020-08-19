@@ -32,6 +32,7 @@
         <modelmapper.version>2.3.4</modelmapper.version>
         <h2database.version>1.4.182</h2database.version>
         <junit.version>5.3.2</junit.version>
+        <spotify.docker.plugin.version>1.4.9</spotify.docker.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -114,6 +115,11 @@
                 <artifactId>h2</artifactId>
                 <version>${h2database.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${spotify.docker.plugin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

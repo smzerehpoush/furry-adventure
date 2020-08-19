@@ -14,7 +14,7 @@
             );
 
             create unique index sessions_id_uindex
-            on users (id);
+            on sessions (id);
 
             alter table sessions
             add constraint sessions_pk

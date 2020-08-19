@@ -120,6 +120,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <contextDirectory>./</contextDirectory>
+                    <tag>${project.artifactId}</tag>
+                    <buildArgs>
+                        <DEPENDENCY>target/dependency</DEPENDENCY>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
