@@ -72,6 +72,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: services/auth/auth-service
+    image: auth-service:latest
     ports:
       - "8082:8082"
     depends_on:
